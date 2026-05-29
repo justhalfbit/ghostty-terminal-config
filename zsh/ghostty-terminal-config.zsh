@@ -99,6 +99,28 @@ bindkey '^F' autosuggest-accept
 # ==============================================================================
 # 别名
 # ==============================================================================
+# Git | 常用命令快捷方式，保留从 oh-my-zsh 迁移时最常用的手感
+alias g="git"
+alias gst="git status"
+alias ga="git add"
+alias gaa="git add --all"
+alias gcmsg="git commit --message"
+alias gco="git checkout"
+alias gcb="git checkout -b"
+alias gb="git branch"
+alias gba="git branch --all"
+alias gl="git pull"
+alias gp="git push"
+alias gd="git diff"
+alias gds="git diff --staged"
+alias glo="git log --oneline --decorate"
+alias glog="git log --oneline --decorate --graph"
+alias gstl="git stash list"
+alias gsta="git stash push"
+alias gstp="git stash pop"
+alias grb="git rebase"
+alias grbi="git rebase --interactive"
+
 # eza | 替代 ls，支持彩色输出、文件图标、目录优先
 # 使用方法: ls 普通列表, ll 详细列表, lt 树形视图
 alias ls="eza --icons --group-directories-first"

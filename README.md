@@ -138,6 +138,33 @@ rm -rf /tmp/ghostty-config
 
 ## 别名速查
 
+### Git
+
+| 别名 | 实际命令 |
+|------|---------|
+| `g` | `git` |
+| `gst` | `git status` |
+| `ga` | `git add` |
+| `gaa` | `git add --all` |
+| `gcmsg` | `git commit --message` |
+| `gco` | `git checkout` |
+| `gcb` | `git checkout -b` |
+| `gb` | `git branch` |
+| `gba` | `git branch --all` |
+| `gl` | `git pull` |
+| `gp` | `git push` |
+| `gd` | `git diff` |
+| `gds` | `git diff --staged` |
+| `glo` | `git log --oneline --decorate` |
+| `glog` | `git log --oneline --decorate --graph` |
+| `gstl` | `git stash list` |
+| `gsta` | `git stash push` |
+| `gstp` | `git stash pop` |
+| `grb` | `git rebase` |
+| `grbi` | `git rebase --interactive` |
+
+### 终端工具
+
 | 别名 | 实际命令 |
 |------|---------|
 | `ls` | `eza --icons --group-directories-first` |

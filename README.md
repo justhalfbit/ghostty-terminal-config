@@ -14,7 +14,7 @@ macOS 下基于 Ghostty + Starship + zsh 插件的终端美化方案，从 iTerm
 |------|------|---------|
 | `ghostty/config` | Ghostty 终端配置（字体、主题、窗口、光标） | `~/.config/ghostty/config` |
 | `starship/starship.toml` | Starship 彩虹条提示符配置（官方预设 + 换行） | `~/.config/starship.toml` |
-| `zsh/.zshrc` | zsh 配置（插件、工具、别名、快捷键） | `~/.zshrc` |
+| `zsh/ghostty-terminal-config.zsh` | zsh 配置（插件、工具、别名、快捷键） | `~/.config/ghostty-terminal-config/zshrc.zsh` |
 
 ## 一键安装
 
@@ -24,9 +24,9 @@ bash <(curl -fsSL https://raw.githubusercontent.com/justhalfbit/ghostty-terminal
 
 安装前会询问确认，确认后自动执行：
 1. 通过 Homebrew 安装所有依赖
-2. 备份已有 Ghostty 和 Starship 配置文件
-3. 安装 Ghostty 和 Starship 配置（覆盖）
-4. 将 zsh 配置追加到 `~/.zshrc` 尾部（不覆盖用户已有内容）
+2. 备份已有 Ghostty、Starship、独立 zsh 配置文件和 `~/.zshrc`
+3. 安装 Ghostty、Starship 和独立 zsh 配置文件（覆盖）
+4. 在 `~/.zshrc` 尾部写入一小段 `source` 引入（不内联整份配置）
 
 ## 备份与恢复
 
@@ -38,6 +38,8 @@ bash <(curl -fsSL https://raw.githubusercontent.com/justhalfbit/ghostty-terminal
 |---------|---------|
 | `~/.config-backup/<时间戳>/ghostty-config` | `~/.config/ghostty/config` |
 | `~/.config-backup/<时间戳>/starship.toml` | `~/.config/starship.toml` |
+| `~/.config-backup/<时间戳>/ghostty-terminal-config.zsh` | `~/.config/ghostty-terminal-config/zshrc.zsh` |
+| `~/.config-backup/<时间戳>/zshrc` | `~/.zshrc` |
 
 恢复命令：
 
@@ -48,11 +50,17 @@ ls ~/.config-backup/
 # 恢复（替换 <时间戳> 为实际目录名）
 cp ~/.config-backup/<时间戳>/ghostty-config ~/.config/ghostty/config
 cp ~/.config-backup/<时间戳>/starship.toml ~/.config/starship.toml
+cp ~/.config-backup/<时间戳>/ghostty-terminal-config.zsh ~/.config/ghostty-terminal-config/zshrc.zsh
+cp ~/.config-backup/<时间戳>/zshrc ~/.zshrc
 ```
 
 ### 卸载 zsh 配置
 
-删除 `~/.zshrc` 中 `# >>> ghostty-terminal-config >>>` 到 `# <<< ghostty-terminal-config <<<` 之间的所有内容即可。
+删除 `~/.zshrc` 中 `# >>> ghostty-terminal-config >>>` 到 `# <<< ghostty-terminal-config <<<` 之间的引入区块，并删除独立配置文件：
+
+```bash
+rm -f ~/.config/ghostty-terminal-config/zshrc.zsh
+```
 
 ## 依赖
 
@@ -90,12 +98,20 @@ git clone --depth 1 https://github.com/justhalfbit/ghostty-terminal-config.git /
 
 ```bash
 mkdir -p ~/.config/ghostty
+mkdir -p ~/.config/ghostty-terminal-config
 cp /tmp/ghostty-config/ghostty/config ~/.config/ghostty/config
 cp /tmp/ghostty-config/starship/starship.toml ~/.config/starship.toml
-cat /tmp/ghostty-config/zsh/.zshrc >> ~/.zshrc
+cp /tmp/ghostty-config/zsh/ghostty-terminal-config.zsh ~/.config/ghostty-terminal-config/zshrc.zsh
+cat >> ~/.zshrc <<'EOF'
+
+# >>> ghostty-terminal-config >>>
+# ghostty-terminal-config: 独立 zsh 配置文件引入
+[ -r "$HOME/.config/ghostty-terminal-config/zshrc.zsh" ] && source "$HOME/.config/ghostty-terminal-config/zshrc.zsh"
+# <<< ghostty-terminal-config <<<
+EOF
 ```
 
-> 注意：zsh 配置是追加到 `~/.zshrc` 尾部，不会覆盖已有内容。如果重复执行需手动去重。
+> 注意：`~/.zshrc` 中只保留引入区块，实际 zsh 配置位于 `~/.config/ghostty-terminal-config/zshrc.zsh`，方便重复安装、升级和卸载。
 
 ### 4. 清理并重启
 

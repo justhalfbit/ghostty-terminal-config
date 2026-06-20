@@ -29,6 +29,7 @@ $kotlin\
 $haskell\
 $python\
 [](fg:green bg:sapphire)\
+$docker_context\
 $conda\
 [](fg:sapphire bg:lavender)\
 $time\

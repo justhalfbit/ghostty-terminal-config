@@ -81,14 +81,24 @@ function y() {
 # 根据历史命令在光标后显示灰色建议
 # 使用方法: 输入时自动出现灰色提示，按 → 或 Ctrl+F 接受
 # 注意: 依赖历史记录，上面的 HISTFILE 配置不能少
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+# 适配Intel芯片及系列芯片Mac，动态加载 zsh-autosuggestions
+if [ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+elif [ -f "$(brew --prefix zsh-autosuggestions)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]; then
+    source "$(brew --prefix zsh-autosuggestions)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
 
 # ==============================================================================
 # zsh-syntax-highlighting | 语法高亮
 # ==============================================================================
 # 命令输入时实时着色：存在的命令绿色，不存在的红色，字符串高亮等
 # 注意: 官方要求必须是最后一个被 source 的插件，否则无法正确高亮其他插件的命令
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# 适配Intel芯片及系列芯片Mac，动态加载 zsh-syntax-highlighting
+if [ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+elif [ -f "$(brew --prefix zsh-syntax-highlighting)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]; then
+    source "$(brew --prefix zsh-syntax-highlighting)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 # ==============================================================================
 # 快捷键
